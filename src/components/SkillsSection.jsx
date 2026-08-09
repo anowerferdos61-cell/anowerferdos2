@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layout, Terminal, Database, Wrench, Compass, Sparkles } from 'lucide-react';
+import { Layout, Terminal, Database, Wrench, Compass } from 'lucide-react';
 
 export default function SkillsSection() {
   const skillCategories = [
     {
       title: 'Frontend Development',
       icon: Layout,
-      color: 'text-cyan-400',
-      border: 'border-cyan-500/30',
+      color: 'text-sky-700',
+      border: 'border-slate-200',
       skills: [
         { name: 'HTML5', status: 'Comfortable' },
         { name: 'CSS3', status: 'Comfortable' },
@@ -22,8 +22,8 @@ export default function SkillsSection() {
     {
       title: 'Programming',
       icon: Terminal,
-      color: 'text-emerald-400',
-      border: 'border-emerald-500/30',
+      color: 'text-emerald-700',
+      border: 'border-slate-200',
       skills: [
         { name: 'C', status: 'Working Knowledge' },
         { name: 'C++', status: 'Working Knowledge' },
@@ -35,8 +35,8 @@ export default function SkillsSection() {
     {
       title: 'Backend & Database',
       icon: Database,
-      color: 'text-amber-400',
-      border: 'border-amber-500/30',
+      color: 'text-amber-700',
+      border: 'border-slate-200',
       skills: [
         { name: 'REST APIs', status: 'Working Knowledge' },
         { name: 'PostgreSQL', status: 'Learning' },
@@ -48,8 +48,8 @@ export default function SkillsSection() {
     {
       title: 'Tools & Workflow',
       icon: Wrench,
-      color: 'text-blue-400',
-      border: 'border-blue-500/30',
+      color: 'text-sky-700',
+      border: 'border-slate-200',
       skills: [
         { name: 'Git', status: 'Comfortable' },
         { name: 'GitHub', status: 'Comfortable' },
@@ -62,8 +62,8 @@ export default function SkillsSection() {
     {
       title: 'Currently Exploring',
       icon: Compass,
-      color: 'text-purple-400',
-      border: 'border-purple-500/30',
+      color: 'text-indigo-700',
+      border: 'border-slate-200',
       fullWidth: true,
       skills: [
         { name: 'TypeScript', status: 'Currently Exploring' },
@@ -79,30 +79,30 @@ export default function SkillsSection() {
   const getBadgeStyle = (status) => {
     switch (status) {
       case 'Comfortable':
-        return 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30';
+        return 'bg-emerald-50 text-emerald-800 border-emerald-200';
       case 'Working Knowledge':
-        return 'bg-cyan-950/80 text-cyan-300 border-cyan-500/30';
+        return 'bg-sky-50 text-sky-800 border-sky-200';
       case 'Learning':
-        return 'bg-amber-950/80 text-amber-300 border-amber-500/30';
+        return 'bg-amber-50 text-amber-800 border-amber-200';
       case 'Currently Exploring':
-        return 'bg-purple-950/80 text-purple-300 border-purple-500/30';
+        return 'bg-indigo-50 text-indigo-800 border-indigo-200';
       default:
-        return 'bg-slate-900 text-slate-300 border-white/10';
+        return 'bg-slate-100 text-slate-700 border-slate-200';
     }
   };
 
   return (
-    <section id="skills" className="relative py-28 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section id="skills" className="relative py-24 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Header */}
       <div className="flex flex-col items-start space-y-4 mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill border border-white/10 text-xs font-mono text-cyan-400">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-sky-800 font-semibold">
           <span>SECTION 03</span>
           <span>•</span>
           <span>TECHNICAL SKILLS</span>
         </div>
 
-        <h2 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
-          What I <span className="text-gradient-cyan">Work With</span>
+        <h2 className="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight">
+          What I <span className="text-sky-700">Work With</span>
         </h2>
       </div>
 
@@ -117,22 +117,22 @@ export default function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className={`p-8 rounded-3xl glass-panel border ${cat.border} space-y-6 ${
+              className={`p-8 rounded-3xl bg-white border ${cat.border} shadow-xs space-y-6 ${
                 cat.fullWidth ? 'md:col-span-2' : ''
               }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`p-3 rounded-2xl bg-slate-900 border border-white/10 ${cat.color}`}>
+                <div className={`p-3 rounded-2xl bg-slate-50 border border-slate-200 ${cat.color}`}>
                   <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-bold text-white">{cat.title}</h3>
+                <h3 className="text-xl font-bold text-slate-900">{cat.title}</h3>
               </div>
 
               <div className="flex flex-wrap gap-2.5">
                 {cat.skills.map((s) => (
                   <div
                     key={s.name}
-                    className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs font-medium text-slate-200"
+                    className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800"
                   >
                     <span>{s.name}</span>
                     <span className={`px-2 py-0.5 rounded text-[10px] font-mono border ${getBadgeStyle(s.status)}`}>

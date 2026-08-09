@@ -40,7 +40,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#050608]/20 text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#FBFBFD] text-slate-900 selection:bg-sky-100 selection:text-sky-900 overflow-x-hidden bg-tech-lines">
       {/* 3D Canvas Background */}
       <Background3DCanvas />
 
@@ -48,7 +48,7 @@ export default function App() {
       <Navbar onOpenContact={() => setIsContactOpen(true)} />
 
       {/* Main Flow */}
-      <main className="relative z-10 space-y-12">
+      <main className="relative z-10 space-y-16">
         <HeroSection onOpenContact={() => setIsContactOpen(true)} />
         <AboutSection />
         <JourneySection />

@@ -8,8 +8,9 @@ export default function Background3DCanvas() {
     const container = containerRef.current;
     if (!container) return;
 
-    // Scene setup — No Fog for crisp background clarity
+    // Scene setup — Soft off-white fog for subtle depth
     const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0xFBFBFD, 0.015);
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(
@@ -18,7 +19,7 @@ export default function Background3DCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 25;
+    camera.position.z = 30;
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -26,90 +27,86 @@ export default function Background3DCanvas() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
-    // Group for 3D Full-Screen Background Photo Layer
-    const portraitGroup = new THREE.Group();
-    scene.add(portraitGroup);
+    // Main 3D Tech Lines Group
+    const mainGroup = new THREE.Group();
+    scene.add(mainGroup);
 
-    // Floating 3D Particles Group
-    const particlesGroup = new THREE.Group();
-    scene.add(particlesGroup);
+    // 1. Central Subtle Technical Wireframe Geometry (Slate / Faint Cyan)
+    const coreGeo = new THREE.IcosahedronGeometry(6, 2);
+    const coreMat = new THREE.MeshBasicMaterial({
+      color: 0x0284c7,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.08,
+    });
+    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+    mainGroup.add(coreMesh);
 
-    // Create ambient dust sparkles
-    const particleCount = 90;
+    // Inner Geometry (Cool Slate)
+    const innerGeo = new THREE.OctahedronGeometry(3.5, 0);
+    const innerMat = new THREE.MeshBasicMaterial({
+      color: 0x475569,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.1,
+    });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    mainGroup.add(innerMesh);
+
+    // Outer Thin Orbital Ring 1
+    const ringGeo1 = new THREE.TorusGeometry(12, 0.03, 16, 100);
+    const ringMat1 = new THREE.MeshBasicMaterial({
+      color: 0x0284c7,
+      transparent: true,
+      opacity: 0.1,
+    });
+    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+    ring1.rotation.x = Math.PI / 3;
+    mainGroup.add(ring1);
+
+    // Outer Thin Orbital Ring 2
+    const ringGeo2 = new THREE.TorusGeometry(16, 0.02, 16, 120);
+    const ringMat2 = new THREE.MeshBasicMaterial({
+      color: 0x64748b,
+      transparent: true,
+      opacity: 0.08,
+    });
+    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+    ring2.rotation.y = Math.PI / 4;
+    mainGroup.add(ring2);
+
+    // 2. Ambient Micro Particles (Faint Cyan & Slate)
+    const particleCount = 160;
     const particleGeo = new THREE.BufferGeometry();
     const posArray = new Float32Array(particleCount * 3);
+    const colorArray = new Float32Array(particleCount * 3);
+
+    const cyanColor = new THREE.Color(0x0284c7);
+    const slateColor = new THREE.Color(0x94a3b8);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-      posArray[i] = (Math.random() - 0.5) * 80;
-      posArray[i + 1] = (Math.random() - 0.5) * 100;
-      posArray[i + 2] = (Math.random() - 0.5) * 30 - 5;
+      posArray[i] = (Math.random() - 0.5) * 90;
+      posArray[i + 1] = (Math.random() - 0.5) * 110;
+      posArray[i + 2] = (Math.random() - 0.5) * 50 - 10;
+
+      const col = Math.random() > 0.4 ? cyanColor : slateColor;
+      colorArray[i] = col.r;
+      colorArray[i + 1] = col.g;
+      colorArray[i + 2] = col.b;
     }
 
     particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particleGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
 
     const particleMat = new THREE.PointsMaterial({
       size: 0.35,
-      color: 0x38bdf8,
+      vertexColors: true,
       transparent: true,
-      opacity: 0.5,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.3,
     });
 
-    const particleMesh = new THREE.Points(particleGeo, particleMat);
-    particlesGroup.add(particleMesh);
-
-    let portraitMesh = null;
-    let currentAspect = 1.33;
-
-    // Y Travel Distance for Top-to-Bottom Parallax Motion
-    const Y_TRAVEL_RANGE = 14;
-
-    // Helper: Compute plane dimensions to COVER full viewport AND full vertical parallax travel range
-    const updatePlaneDimensions = (mesh, aspect, planeZ = -4) => {
-      if (!mesh) return;
-      const distance = camera.position.z - planeZ;
-      const vFovRad = THREE.MathUtils.degToRad(camera.fov);
-      const visibleHeight = 2 * Math.tan(vFovRad / 2) * Math.abs(distance);
-      const visibleWidth = visibleHeight * camera.aspect;
-
-      // Plane height must be visibleHeight + Y_TRAVEL_RANGE + buffer to prevent any gap during top-to-bottom scroll
-      const requiredHeight = visibleHeight + Y_TRAVEL_RANGE + 6;
-      let planeH = requiredHeight;
-      let planeW = planeH * aspect;
-
-      // Ensure width also completely covers visibleWidth
-      if (planeW < visibleWidth * 1.35) {
-        planeW = visibleWidth * 1.35;
-        planeH = planeW / aspect;
-      }
-
-      mesh.geometry.dispose();
-      mesh.geometry = new THREE.PlaneGeometry(planeW, planeH, 48, 48);
-    };
-
-    // Load Pristine Original Photo Texture (No Color Alteration or Overlay)
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('/anower-bg-1.jpg', (texture) => {
-      texture.colorSpace = THREE.SRGBColorSpace;
-      const image = texture.image;
-      currentAspect = image.width / image.height;
-
-      const planeMat = new THREE.MeshBasicMaterial({
-        map: texture,
-        transparent: true,
-        opacity: 0.95,
-        side: THREE.DoubleSide,
-      });
-
-      portraitMesh = new THREE.Mesh(new THREE.BufferGeometry(), planeMat);
-      portraitMesh.position.set(0, 0, -4);
-      updatePlaneDimensions(portraitMesh, currentAspect, -4);
-      portraitGroup.add(portraitMesh);
-    });
-
-    // Bright Natural Ambient Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-    scene.add(ambientLight);
+    const particles = new THREE.Points(particleGeo, particleMat);
+    scene.add(particles);
 
     // Mouse & Scroll Parallax State
     let mouseX = 0;
@@ -117,13 +114,11 @@ export default function Background3DCanvas() {
     let targetX = 0;
     let targetY = 0;
     let scrollY = 0;
-    let lastScrollY = 0;
-    let scrollVelocity = 0;
     let currentScrollNorm = 0;
 
     const handleMouseMove = (e) => {
-      mouseX = (e.clientX - window.innerWidth / 2) * 0.0004;
-      mouseY = (e.clientY - window.innerHeight / 2) * 0.0004;
+      mouseX = (e.clientX - window.innerWidth / 2) * 0.0003;
+      mouseY = (e.clientY - window.innerHeight / 2) * 0.0003;
     };
 
     const handleScroll = () => {
@@ -137,8 +132,6 @@ export default function Background3DCanvas() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-
-      if (portraitMesh) updatePlaneDimensions(portraitMesh, currentAspect, -4);
     };
 
     window.addEventListener('resize', handleResize);
@@ -149,47 +142,32 @@ export default function Background3DCanvas() {
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth mouse interpolation
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
 
-      // Scroll inertia & velocity calculation
-      const scrollDelta = scrollY - lastScrollY;
-      scrollVelocity += (scrollDelta - scrollVelocity) * 0.1;
-      lastScrollY = scrollY;
-
-      // Normalized Scroll Progress (0 at top, 1 at bottom)
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const targetScrollNorm = Math.min(1, Math.max(0, scrollY / maxScroll));
-      currentScrollNorm += (targetScrollNorm - currentScrollNorm) * 0.08;
+      currentScrollNorm += (targetScrollNorm - currentScrollNorm) * 0.06;
 
-      // Dynamic Top-to-Bottom Parallax Sliding Motion:
-      // As you scroll down the page, the photo slides smoothly from top to bottom!
-      portraitGroup.position.y = (0.5 - currentScrollNorm) * Y_TRAVEL_RANGE;
-      portraitGroup.position.z = -4 + Math.sin(currentScrollNorm * Math.PI) * 0.6;
-      portraitGroup.rotation.x = targetY * 1.5 + (currentScrollNorm - 0.5) * -0.15 + scrollVelocity * 0.0005;
-      portraitGroup.rotation.y = targetX * 1.5 + Math.sin(elapsedTime * 0.3) * 0.015;
+      coreMesh.rotation.x = elapsedTime * 0.12;
+      coreMesh.rotation.y = elapsedTime * 0.15;
 
-      // Dynamic Organic 3D Wave Ripples on scroll
-      if (portraitMesh && portraitMesh.geometry && portraitMesh.geometry.attributes.position) {
-        const pos = portraitMesh.geometry.attributes.position;
-        const waveIntensity = 0.2 + Math.min(0.6, Math.abs(scrollVelocity) * 0.012);
+      innerMesh.rotation.x = -elapsedTime * 0.18;
+      innerMesh.rotation.y = -elapsedTime * 0.22;
 
-        for (let i = 0; i < pos.count; i++) {
-          const u = pos.getX(i);
-          const v = pos.getY(i);
-          const zWave = Math.sin(u * 0.1 + v * 0.1 + elapsedTime * 1.2 + currentScrollNorm * 5) * waveIntensity;
-          pos.setZ(i, zWave);
-        }
-        pos.needsUpdate = true;
-      }
+      ring1.rotation.z = elapsedTime * 0.08;
+      ring2.rotation.x = elapsedTime * 0.1;
 
-      // Sparkle Particle Swirl & Motion on Scroll
-      particlesGroup.rotation.y = elapsedTime * 0.04 + currentScrollNorm * 1.2;
-      particlesGroup.position.y = (0.5 - currentScrollNorm) * (Y_TRAVEL_RANGE * 0.8);
+      mainGroup.position.y = (0.5 - currentScrollNorm) * 12;
+      mainGroup.position.x = Math.sin(elapsedTime * 0.3) * 1.2;
+
+      mainGroup.rotation.x = targetY * 1.5 + (currentScrollNorm - 0.5) * -0.15;
+      mainGroup.rotation.y = targetX * 1.5;
+
+      particles.rotation.y = elapsedTime * 0.015 + currentScrollNorm * 0.4;
+      particles.position.y = (0.5 - currentScrollNorm) * 14;
 
       renderer.render(scene, camera);
     };
@@ -211,14 +189,8 @@ export default function Background3DCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-100"
+      className="fixed inset-0 pointer-events-none z-0 opacity-60"
       aria-hidden="true"
     />
   );
 }
-
-
-
-
-
-

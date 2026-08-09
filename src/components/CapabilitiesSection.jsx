@@ -9,21 +9,21 @@ export default function CapabilitiesSection() {
       title: 'Full-Stack Development',
       desc: 'Building modern web applications with frontend, backend, databases, authentication, and deployment.',
       badge: 'Active Focus',
-      color: 'text-cyan-400',
+      color: 'text-sky-700',
     },
     {
       icon: Bot,
       title: 'AI-Powered Applications',
       desc: 'Exploring how AI can be integrated into useful products rather than building AI features just for the sake of AI.',
       badge: 'Research & Labs',
-      color: 'text-emerald-400',
+      color: 'text-emerald-700',
     },
     {
       icon: FlaskConical,
       title: 'EdTech Innovations',
       desc: 'Working on technology that can make science and chemistry education more interactive and accessible.',
       badge: 'Dr. Chem Startup',
-      color: 'text-amber-400',
+      color: 'text-amber-700',
     },
   ];
 
@@ -56,28 +56,28 @@ export default function CapabilitiesSection() {
   ];
 
   return (
-    <section className="relative py-28 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section className="relative py-24 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Accent */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-sky-100/40 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Header */}
       <div className="flex flex-col items-start space-y-4 mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill border border-white/10 text-xs font-mono text-cyan-400">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-sky-800 font-semibold">
           <span>SECTION 05</span>
           <span>•</span>
           <span>ACTIVE FOCUS & CAPABILITIES</span>
         </div>
 
-        <h2 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
-          Currently Building & <span className="text-gradient-cyan">What I Can Build</span>
+        <h2 className="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight">
+          Currently Building & <span className="text-sky-700">What I Can Build</span>
         </h2>
       </div>
 
       {/* Currently Building Block */}
       <div className="mb-20 space-y-6">
-        <div className="text-sm font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
+        <div className="text-sm font-mono text-slate-500 uppercase tracking-widest flex items-center gap-2">
           <span>CURRENTLY BUILDING</span>
-          <span className="text-slate-600">//</span>
+          <span className="text-slate-400">//</span>
           <span className="text-xs text-slate-500 font-normal">Active product development areas</span>
         </div>
 
@@ -90,20 +90,20 @@ export default function CapabilitiesSection() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="p-8 rounded-3xl glass-panel border border-cyan-500/30 space-y-4 shadow-xl flex flex-col justify-between"
+                className="p-8 rounded-3xl bg-white border border-slate-200 space-y-4 shadow-xs flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className={`p-3 rounded-2xl bg-slate-900 border border-white/10 ${item.color}`}>
+                    <div className={`p-3 rounded-2xl bg-slate-50 border border-slate-200 ${item.color}`}>
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono text-cyan-400 bg-slate-950 px-2.5 py-1 rounded-full border border-cyan-500/30 font-semibold">
+                    <span className="text-[10px] font-mono text-sky-800 bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200 font-semibold">
                       {item.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-white">{item.title}</h3>
-                  <p className="text-xs text-slate-300 leading-relaxed font-light">{item.desc}</p>
+                  <h3 className="text-2xl font-bold text-slate-900">{item.title}</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">{item.desc}</p>
                 </div>
               </motion.div>
             );
@@ -113,9 +113,9 @@ export default function CapabilitiesSection() {
 
       {/* What I Can Build Grid */}
       <div className="space-y-6">
-        <div className="text-sm font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
+        <div className="text-sm font-mono text-slate-500 uppercase tracking-widest flex items-center gap-2">
           <span>WHAT I CAN BUILD FOR YOU</span>
-          <span className="text-slate-600">//</span>
+          <span className="text-slate-400">//</span>
           <span className="text-xs text-slate-500 font-normal">Solutions & services</span>
         </div>
 
@@ -128,13 +128,13 @@ export default function CapabilitiesSection() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="p-6 rounded-2xl glass-card border border-white/10 hover:border-white/20 transition-all space-y-3"
+                className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 transition-all space-y-3 shadow-xs"
               >
-                <div className="p-2.5 rounded-xl bg-slate-900 border border-white/10 w-fit text-cyan-400">
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 w-fit text-sky-700">
                   <Icon className="w-5 h-5" />
                 </div>
-                <h4 className="text-lg font-bold text-white">{item.title}</h4>
-                <p className="text-xs text-slate-400 leading-relaxed font-light">{item.desc}</p>
+                <h4 className="text-lg font-bold text-slate-900">{item.title}</h4>
+                <p className="text-xs text-slate-600 leading-relaxed font-normal">{item.desc}</p>
               </motion.div>
             );
           })}

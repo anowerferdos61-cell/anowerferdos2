@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Sparkles, MessageSquare, PhoneCall, Globe } from 'lucide-react';
+import { Mail, Sparkles, MessageSquare, PhoneCall, Globe } from 'lucide-react';
 
 const GithubIcon = (props) => (
   <svg className="w-4 h-4 fill-current inline-block" viewBox="0 0 24 24" {...props}>
@@ -26,7 +26,7 @@ export default function ContactSection({ onOpenContact }) {
       name: 'WhatsApp',
       href: 'https://wa.me/8801303446161',
       icon: WhatsappIcon,
-      color: 'hover:text-emerald-400 hover:border-emerald-500/40',
+      color: 'hover:text-emerald-700 hover:border-emerald-300',
     },
     {
       name: 'Facebook',
@@ -36,19 +36,19 @@ export default function ContactSection({ onOpenContact }) {
           <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.65 13.75 5.65c1.08 0 2.21.19 2.21.19v2.43h-1.25c-1.23 0-1.61.77-1.61 1.56V12h2.74l-.44 3h-2.3v6.8c4.56-.93 8-4.96 8-9.8z" />
         </svg>
       ),
-      color: 'hover:text-blue-500 hover:border-blue-400/40',
+      color: 'hover:text-blue-600 hover:border-blue-300',
     },
     {
       name: 'GitHub',
       href: 'https://github.com/anowerferdos61-cell',
       icon: GithubIcon,
-      color: 'hover:text-cyan-400 hover:border-cyan-500/40',
+      color: 'hover:text-sky-700 hover:border-sky-300',
     },
     {
       name: 'Instagram',
       href: 'https://www.instagram.com/anower_ferdos?igsh=a2xuMXBvZHE2MDJ0',
       icon: InstagramIcon,
-      color: 'hover:text-pink-400 hover:border-pink-500/40',
+      color: 'hover:text-pink-600 hover:border-pink-300',
     },
     {
       name: 'LinkedIn',
@@ -58,41 +58,41 @@ export default function ContactSection({ onOpenContact }) {
           <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.74a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z" />
         </svg>
       ),
-      color: 'hover:text-blue-400 hover:border-blue-500/40',
+      color: 'hover:text-blue-700 hover:border-blue-300',
     },
   ];
 
   return (
-    <section id="contact" className="relative py-32 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
-      {/* Background Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[180px] pointer-events-none" />
+    <section id="contact" className="relative py-28 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+      {/* Background Accent */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-100/50 rounded-full blur-[160px] pointer-events-none" />
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="p-10 sm:p-20 rounded-3xl glass-panel border border-cyan-500/30 text-center flex flex-col items-center shadow-[0_0_50px_rgba(56,189,248,0.15)] relative overflow-hidden"
+        className="p-10 sm:p-20 rounded-3xl bg-white border border-slate-200 text-center flex flex-col items-center shadow-sm relative overflow-hidden"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-pill border border-cyan-500/40 text-xs font-mono text-cyan-300 mb-6">
-          <Sparkles className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-sky-800 font-semibold mb-6">
+          <Sparkles className="w-3.5 h-3.5 text-sky-600" />
           <span>STARTUP FOUNDER & DEVELOPER</span>
         </div>
 
-        <h2 className="text-4xl sm:text-7xl font-black text-white tracking-tight leading-tight mb-6">
+        <h2 className="text-4xl sm:text-7xl font-black text-slate-900 tracking-tight leading-tight mb-6">
           Have an Idea or Partnership? <br className="hidden sm:inline" />
-          <span className="text-gradient-cyan">Let's Connect & Build.</span>
+          <span className="text-sky-700">Let's Connect & Build.</span>
         </h2>
 
-        <p className="text-lg sm:text-2xl text-slate-300 font-light max-w-2xl mb-10">
-          Whether you want to discuss Dr. Chem (<a href="https://drchemedu.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 underline font-semibold">drchemedu.com</a>), educational tech, investments, or custom software solutions — feel free to reach out directly.
+        <p className="text-lg sm:text-2xl text-slate-600 font-normal max-w-2xl mb-10">
+          Whether you want to discuss Dr. Chem (<a href="https://drchemedu.com" target="_blank" rel="noopener noreferrer" className="text-sky-700 underline font-semibold">drchemedu.com</a>), educational tech, investments, or custom software solutions — feel free to reach out directly.
         </p>
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
           <button
             onClick={onOpenContact}
-            className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_45px_rgba(56,189,248,0.6)] transition-all flex items-center gap-3 transform hover:-translate-y-1"
+            className="px-8 py-4 rounded-full bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-sm sm:text-base shadow-md transition-all flex items-center gap-3 transform hover:-translate-y-0.5"
           >
             <MessageSquare className="w-5 h-5" />
             <span>Send Direct Message →</span>
@@ -102,28 +102,28 @@ export default function ContactSection({ onOpenContact }) {
             href="https://wa.me/8801303446161"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 rounded-full glass-panel border border-emerald-500/40 text-emerald-300 font-bold text-sm sm:text-base hover:bg-emerald-500/10 transition-all flex items-center gap-3 transform hover:-translate-y-1"
+            className="px-8 py-4 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-sm sm:text-base hover:bg-emerald-100 transition-all flex items-center gap-3 transform hover:-translate-y-0.5"
           >
-            <WhatsappIcon className="w-5 h-5 text-emerald-400" />
+            <WhatsappIcon className="w-5 h-5 text-emerald-700" />
             <span>WhatsApp (01303446161) →</span>
           </a>
 
           <a
             href="mailto:anowerferdos61@gmail.com"
-            className="px-8 py-4 rounded-full glass-panel border border-white/20 text-white font-bold text-sm sm:text-base hover:bg-white/10 hover:border-cyan-400/40 transition-all flex items-center gap-3 transform hover:-translate-y-1"
+            className="px-8 py-4 rounded-full bg-slate-100 border border-slate-200 text-slate-900 font-bold text-sm sm:text-base hover:bg-slate-200 transition-all flex items-center gap-3 transform hover:-translate-y-0.5"
           >
-            <Mail className="w-5 h-5 text-cyan-400" />
+            <Mail className="w-5 h-5 text-sky-700" />
             <span>Email Me →</span>
           </a>
         </div>
 
         {/* Contact Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl mb-10 text-xs font-mono text-slate-300">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl mb-10 text-xs font-mono text-slate-700">
           <a
             href="mailto:anowerferdos61@gmail.com"
-            className="p-4 rounded-2xl glass-card border border-white/10 flex items-center gap-3 justify-center hover:border-cyan-400/40 transition-all"
+            className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3 justify-center hover:border-sky-300 transition-all"
           >
-            <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
+            <Mail className="w-4 h-4 text-sky-700 shrink-0" />
             <span>anowerferdos61@gmail.com</span>
           </a>
 
@@ -131,9 +131,9 @@ export default function ContactSection({ onOpenContact }) {
             href="https://wa.me/8801303446161"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-4 rounded-2xl glass-card border border-white/10 flex items-center gap-3 justify-center hover:border-emerald-400/40 transition-all text-emerald-300"
+            className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 flex items-center gap-3 justify-center hover:border-emerald-300 transition-all text-emerald-900 font-semibold"
           >
-            <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
+            <PhoneCall className="w-4 h-4 text-emerald-700 shrink-0" />
             <span>01303446161</span>
           </a>
 
@@ -141,16 +141,16 @@ export default function ContactSection({ onOpenContact }) {
             href="https://drchemedu.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-4 rounded-2xl glass-card border border-white/10 flex items-center gap-3 justify-center hover:border-amber-400/40 transition-all text-amber-300"
+            className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 flex items-center gap-3 justify-center hover:border-amber-300 transition-all text-amber-900 font-semibold"
           >
-            <Globe className="w-4 h-4 text-amber-400 shrink-0" />
+            <Globe className="w-4 h-4 text-amber-700 shrink-0" />
             <span>drchemedu.com</span>
           </a>
         </div>
 
         {/* Social Links */}
-        <div className="pt-8 border-t border-white/10 flex flex-col items-center space-y-4 w-full max-w-2xl">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">Connect With Me Everywhere</span>
+        <div className="pt-8 border-t border-slate-100 flex flex-col items-center space-y-4 w-full max-w-2xl">
+          <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">Connect With Me Everywhere</span>
           <div className="flex flex-wrap justify-center items-center gap-3">
             {socialLinks.map((s) => {
               const Icon = s.icon;
@@ -160,7 +160,7 @@ export default function ContactSection({ onOpenContact }) {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3.5 rounded-full glass-pill border border-white/10 text-slate-300 ${s.color} transition-all duration-300 flex items-center gap-2 text-xs font-mono`}
+                  className={`p-3.5 rounded-full bg-slate-50 border border-slate-200 text-slate-800 ${s.color} transition-all duration-300 flex items-center gap-2 text-xs font-mono`}
                 >
                   <Icon className="w-4 h-4" />
                   <span>{s.name} →</span>
@@ -173,4 +173,3 @@ export default function ContactSection({ onOpenContact }) {
     </section>
   );
 }
-

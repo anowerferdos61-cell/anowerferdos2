@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, GitBranch, ArrowUpRight, Terminal } from 'lucide-react';
+import { Code2, GitBranch, Terminal } from 'lucide-react';
 
 const GithubIcon = (props) => (
   <svg className="w-5 h-5 fill-current inline-block" viewBox="0 0 24 24" {...props}>
@@ -10,31 +10,31 @@ const GithubIcon = (props) => (
 
 export default function GitHubSection() {
   return (
-    <section className="relative py-28 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section className="relative py-24 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="p-8 sm:p-12 rounded-3xl glass-panel border border-white/15 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8"
+        className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8"
       >
         <div className="space-y-4 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill border border-white/10 text-xs font-mono text-cyan-400">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-sky-800 font-semibold">
             <GithubIcon className="w-3.5 h-3.5" />
             <span>OPEN SOURCE & REPOSITORIES</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Code. Build. <span className="text-gradient-cyan">Repeat.</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            Code. Build. <span className="text-sky-700">Repeat.</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
             "My GitHub is where ideas become experiments, experiments become projects, and projects become lessons."
           </p>
 
-          <div className="flex flex-wrap gap-4 pt-2 font-mono text-xs text-slate-400">
-            <span className="flex items-center gap-1.5"><Code2 className="w-4 h-4 text-cyan-400" /> React, JS, Python, C++</span>
-            <span className="flex items-center gap-1.5"><GitBranch className="w-4 h-4 text-emerald-400" /> Continuous Commits</span>
-            <span className="flex items-center gap-1.5"><Terminal className="w-4 h-4 text-amber-400" /> Product Experiments</span>
+          <div className="flex flex-wrap gap-4 pt-2 font-mono text-xs text-slate-600">
+            <span className="flex items-center gap-1.5"><Code2 className="w-4 h-4 text-sky-600" /> React, JS, Python, C++</span>
+            <span className="flex items-center gap-1.5"><GitBranch className="w-4 h-4 text-emerald-600" /> Continuous Commits</span>
+            <span className="flex items-center gap-1.5"><Terminal className="w-4 h-4 text-amber-600" /> Product Experiments</span>
           </div>
         </div>
 
@@ -43,7 +43,7 @@ export default function GitHubSection() {
             href="https://github.com/anowerferdos61-cell"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_45px_rgba(56,189,248,0.6)] transition-all flex items-center gap-3 transform hover:-translate-y-1"
+            className="px-8 py-4 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-sm sm:text-base shadow-md transition-all flex items-center gap-3 transform hover:-translate-y-0.5"
           >
             <GithubIcon />
             <span>Explore My GitHub →</span>
