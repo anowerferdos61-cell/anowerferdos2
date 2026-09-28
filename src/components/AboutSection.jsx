@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, GraduationCap, Code2, Sparkles, ArrowUpRight } from 'lucide-react';
 
-export default function AboutSection() {
+export default function AboutSection({ onOpenResume }) {
   const stats = [
     { label: 'Startup Founded', value: 'Dr. Chem', sub: 'Bangla-First EdTech Platform', icon: Sparkles },
     { label: 'Core Focus', value: 'Full-Stack & AI', sub: 'React, Node, Python, DB', icon: Code2 },
@@ -59,7 +59,7 @@ export default function AboutSection() {
             Whether developing high-converting e-commerce engines like <strong>Corporate Technologies</strong>, academic dispatch platforms, or web services, my philosophy centers on <span className="text-slate-900 font-semibold">fast load times, rock-solid architecture, clean UX, and production-grade reliability</span>.
           </p>
 
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex flex-wrap items-center gap-3 pt-2">
             <a
               href="https://drchemedu.com"
               target="_blank"
@@ -69,6 +69,14 @@ export default function AboutSection() {
               <span>Explore Dr. Chem Ecosystem</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
+
+            <button
+              onClick={onOpenResume}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-300 text-slate-800 text-xs font-mono font-bold hover:bg-slate-50 hover:border-sky-400 hover:text-sky-700 transition-all shadow-xs"
+            >
+              <span>View & Download Resume</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </motion.div>
 

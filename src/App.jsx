@@ -1,22 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import Background3DCanvas from './components/Background3DCanvas';
 import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import AboutSection from './components/AboutSection';
-import JourneySection from './components/JourneySection';
-import SkillsSection from './components/SkillsSection';
-import ProjectsSection from './components/ProjectsSection';
-import CapabilitiesSection from './components/CapabilitiesSection';
-import PhilosophySection from './components/PhilosophySection';
-import WhyMeAndGoalsSection from './components/WhyMeAndGoalsSection';
-import GitHubSection from './components/GitHubSection';
-import ContactSection from './components/ContactSection';
-import ContactModal from './components/ContactModal';
 import Footer from './components/Footer';
+import ContactModal from './components/ContactModal';
+import ResumeModal from './components/ResumeModal';
+import ScrollToTop from './components/ScrollToTop';
+
+// Immediate load for Homepage, lazy load for other pages
+import HomePage from './pages/HomePage';
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const ResumePage = lazy(() => import('./pages/ResumePage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+
+// Route Transition Fallback
+function PageLoader() {
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 rounded-full border-2 border-sky-600 border-t-transparent animate-spin" />
+        <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">Loading...</span>
+      </div>
+    </div>
+  );
+}
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   // Initialize Lenis Smooth Scrolling
   useEffect(() => {
@@ -32,40 +46,67 @@ export default function App() {
       requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    const rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#FBFBFD] text-slate-900 selection:bg-sky-100 selection:text-sky-900 overflow-x-hidden bg-tech-lines">
-      {/* 3D Canvas Background */}
-      <Background3DCanvas />
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="relative min-h-screen bg-[#FBFBFD] text-slate-900 selection:bg-sky-100 selection:text-sky-900 overflow-x-hidden bg-tech-lines flex flex-col justify-between">
+        {/* 3D Canvas Background */}
+        <Background3DCanvas />
 
-      {/* Navbar */}
-      <Navbar onOpenContact={() => setIsContactOpen(true)} />
+        {/* Global Navbar */}
+        <Navbar
+          onOpenContact={() => setIsContactOpen(true)}
+          onOpenResume={() => setIsResumeOpen(true)}
+        />
 
-      {/* Main Flow */}
-      <main className="relative z-10 space-y-16">
-        <HeroSection onOpenContact={() => setIsContactOpen(true)} />
-        <AboutSection />
-        <JourneySection />
-        <SkillsSection />
-        <ProjectsSection />
-        <CapabilitiesSection />
-        <PhilosophySection />
-        <WhyMeAndGoalsSection />
-        <GitHubSection />
-        <ContactSection onOpenContact={() => setIsContactOpen(true)} />
-      </main>
+        {/* Dynamic Route Pages with Suspense */}
+        <main className="relative z-10 flex-grow">
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <HomePage
+                    onOpenContact={() => setIsContactOpen(true)}
+                    onOpenResume={() => setIsResumeOpen(true)}
+                  />
+                }
+              />
+              <Route
+                path="/projects"
+                element={<ProjectsPage onOpenContact={() => setIsContactOpen(true)} />}
+              />
+              <Route
+                path="/about"
+                element={<AboutPage onOpenResume={() => setIsResumeOpen(true)} />}
+              />
+              <Route
+                path="/contact"
+                element={<ContactPage onOpenContact={() => setIsContactOpen(true)} />}
+              />
+              <Route path="/resume" element={<ResumePage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
+        </main>
 
-      {/* Footer */}
-      <Footer />
+        {/* Global Footer */}
+        <Footer onOpenResume={() => setIsResumeOpen(true)} />
 
-      {/* Contact Inquiry Modal */}
-      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
-    </div>
+        {/* Contact Inquiry Modal */}
+        <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+
+        {/* Resume Preview & Download Modal */}
+        <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+      </div>
+    </BrowserRouter>
   );
 }

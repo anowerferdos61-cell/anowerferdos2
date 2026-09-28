@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, ExternalLink, Check, FileSpreadsheet } from 'lucide-react';
 
-export default function HeroSection({ onOpenContact }) {
+export default function HeroSection({ onOpenContact, onOpenResume }) {
   const [activeTab, setActiveTab] = useState('Dashboard');
 
   return (
@@ -117,18 +117,26 @@ export default function HeroSection({ onOpenContact }) {
           >
             <a
               href="#projects"
-              className="sparkle-btn w-full sm:w-auto px-7 py-3.5 text-sm"
+              className="sparkle-btn w-full sm:w-auto px-6 py-3.5 text-sm"
             >
               <span>Explore My Work</span>
               <ArrowRight className="w-4 h-4" />
             </a>
 
             <button
-              onClick={onOpenContact}
-              className="sparkle-btn-light w-full sm:w-auto px-7 py-3.5 text-sm"
+              onClick={onOpenResume}
+              className="sparkle-btn-light w-full sm:w-auto px-6 py-3.5 text-sm border-sky-300 text-sky-800 hover:bg-sky-50"
             >
-              <span>Discuss a Project</span>
-              <ExternalLink className="w-4 h-4 text-sky-600" />
+              <FileSpreadsheet className="w-4 h-4 text-sky-600" />
+              <span>Download CV / Resume</span>
+            </button>
+
+            <button
+              onClick={onOpenContact}
+              className="sparkle-btn-light w-full sm:w-auto px-6 py-3.5 text-sm"
+            >
+              <span>Get in Touch</span>
+              <ExternalLink className="w-4 h-4 text-slate-500" />
             </button>
           </motion.div>
         </main>
