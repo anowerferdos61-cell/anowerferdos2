@@ -1,375 +1,279 @@
 import React, { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Code2, Sparkles, Terminal, ShieldCheck, Laptop, Cpu, Activity, Globe, ExternalLink, Copy, Check, Zap, User } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Sparkles, ArrowRight, ExternalLink, Check, FileSpreadsheet } from 'lucide-react';
 
 export default function HeroSection({ onOpenContact }) {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [activeCardMode, setActiveCardMode] = useState('photo'); // 'photo' | 'tech' | 'metrics'
-  const [copiedCode, setCopiedCode] = useState(false);
-
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    const x = (clientX / innerWidth - 0.5) * 2;
-    const y = (clientY / innerHeight - 0.5) * 2;
-    setMousePos({ x, y });
-  };
-
-  const { scrollY } = useScroll();
-  const heroScale = useTransform(scrollY, [0, 800], [1, 0.96]);
-  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.6]);
-
-  const copySnippet = () => {
-    const code = `const founder = {
-  name: "Anower Ferdos",
-  role: "Startup Founder & Software Developer",
-  startup: "Dr. Chem (drchemedu.com)",
-  focus: ["React 19", "Three.js", "Node.js", "EdTech"],
-  mission: "Solve real-world problems through software."
-};`;
-    navigator.clipboard.writeText(code);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
-  };
+  const [activeTab, setActiveTab] = useState('Dashboard');
 
   return (
-    <motion.section
-      style={{ scale: heroScale, opacity: heroOpacity }}
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen pt-28 pb-16 flex flex-col items-center justify-center overflow-hidden px-4 sm:px-8 z-10"
-    >
-      {/* Subtle Ambient Lighting Overlay */}
-      <div
-        className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-sky-200/20 rounded-full blur-[140px] pointer-events-none"
-        style={{
-          transform: `translate(${mousePos.x * 15}px, ${mousePos.y * 15}px)`,
-        }}
-      />
-      <div
-        className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-slate-200/30 rounded-full blur-[140px] pointer-events-none"
-        style={{
-          transform: `translate(${mousePos.x * -15}px, ${mousePos.y * -15}px)`,
-        }}
-      />
+    <section className="relative z-10 w-full bg-[#FBFBFD] text-slate-900 overflow-hidden pt-24 sm:pt-28 pb-16 lg:pb-24">
+      {/* Background Ambience & Subtle Tech Lines */}
+      <div className="pointer-events-none absolute inset-0 bg-tech-lines opacity-40 z-0" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-sky-200/20 blur-[130px] z-0" />
 
-      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center z-10">
-        {/* Left Column — Headline & Identity */}
-        <div className="lg:col-span-7 flex flex-col items-start space-y-8">
-          {/* Status Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-sky-50/80 backdrop-blur-sm border border-sky-200/80 text-sky-900 text-xs font-mono tracking-wide shadow-xs"
-          >
-            <span className="w-2 h-2 rounded-full bg-sky-600 animate-ping" />
-            <span>Startup Founder @ Dr. Chem (drchemedu.com) & Software Developer</span>
-          </motion.div>
+      {/* Decorative Horizon Lines */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="absolute top-24 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+      </div>
 
-          {/* Main Headline */}
-          <div className="space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="text-xs font-mono text-sky-700 tracking-[0.25em] uppercase font-bold"
-            >
-              ANOWER FERDOS
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.08]"
-            >
-              I Build Digital Experiences <br className="hidden sm:inline" />
-              <span className="text-sky-700">That Solve Real Problems.</span>
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-xs sm:text-sm font-mono text-slate-700 flex flex-wrap items-center gap-2 pt-2"
-            >
-              <span className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-800">Startup Founder</span>
-              <span>•</span>
-              <span className="px-2.5 py-1 rounded-md bg-sky-100/70 border border-sky-200 text-sky-900">Founder @ Dr. Chem</span>
-              <span>•</span>
-              <span className="px-2.5 py-1 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-900">Software Developer</span>
-              <span>•</span>
-              <span className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-800">Product Builder</span>
-            </motion.div>
+      <div className="relative mx-auto flex min-h-[92svh] w-full max-w-[1600px] flex-col px-4 sm:px-6 md:px-10 lg:px-12 justify-between">
+        
+        {/* Top Folio Header Bar */}
+        <header className="relative z-10 flex items-center justify-between gap-4 pt-2">
+          {/* Left Folio Mark */}
+          <div className="hidden md:flex flex-col items-start gap-1 text-[10px] tracking-[0.22em] uppercase text-slate-500 font-semibold font-mono">
+            <div className="flex items-center gap-2">
+              <span className="h-px w-6 bg-slate-400" />
+              <span>A.F — FOLIO</span>
+            </div>
+            <span className="text-slate-400 pl-8">— vol. 01</span>
           </div>
 
-          {/* Subheadline Paragraph */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
+          {/* Center Status Pill */}
+          <div className="flex flex-1 justify-center">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-sky-200 bg-white/95 px-4 py-1.5 font-mono text-[10px] sm:text-xs font-semibold tracking-wider text-slate-800 uppercase shadow-xs">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-600" />
+              </span>
+              <span>Available for high-impact projects & EdTech · 24h reply</span>
+            </span>
+          </div>
+
+          {/* Right Folio Mark */}
+          <div className="hidden md:flex flex-col items-end gap-1 text-[10px] tracking-[0.22em] uppercase text-slate-500 font-semibold font-mono">
+            <div className="flex items-center gap-2">
+              <span>Dhaka · 2026</span>
+              <span className="h-px w-6 bg-slate-400" />
+            </div>
+            <span className="text-slate-400 pr-8">— issue №01</span>
+          </div>
+        </header>
+
+        {/* Central Headline & Value Prop */}
+        <main className="relative z-10 flex flex-1 flex-col items-center justify-center py-10 lg:py-14 text-center max-w-5xl mx-auto">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-base sm:text-xl text-slate-600 max-w-2xl font-normal leading-relaxed"
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-xs font-mono text-sky-800 font-semibold uppercase tracking-wider mb-6"
           >
-            I'm Anower Ferdos, a Startup Founder working on <a href="https://drchemedu.com" target="_blank" rel="noopener noreferrer" className="text-sky-700 font-semibold underline hover:text-sky-800 transition-colors">Dr. Chem</a> (<span className="font-mono text-sky-700">drchemedu.com</span>) and a passionate software developer building modern, impactful digital products.
+            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+            <span>STARTUP FOUNDER & FULL-STACK SOFTWARE ENGINEER</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-extrabold text-slate-900 tracking-tight leading-[1.08] max-w-4xl"
+          >
+            Turn complex ideas into{' '}
+            <span className="relative inline-block px-2 text-sky-700 italic">
+              <span className="absolute inset-0 border border-sky-400 pointer-events-none rounded-xs" />
+              <span className="absolute -top-1 -left-1 w-2 h-2 bg-white border border-sky-600" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-white border border-sky-600" />
+              <span className="absolute -bottom-1 -left-1 w-2 h-2 bg-white border border-sky-600" />
+              <span className="absolute -bottom-1 -right-1 w-2 h-2 bg-white border border-sky-600" />
+              scalable
+            </span>{' '}
+            software and{' '}
+            <span className="relative inline-block px-2 text-sky-700 italic">
+              <span className="absolute inset-0 border border-sky-400 pointer-events-none rounded-xs" />
+              <span className="absolute -top-1 -left-1 w-2 h-2 bg-white border border-sky-600" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-white border border-sky-600" />
+              <span className="absolute -bottom-1 -left-1 w-2 h-2 bg-white border border-sky-600" />
+              <span className="absolute -bottom-1 -right-1 w-2 h-2 bg-white border border-sky-600" />
+              web apps
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-6 max-w-2xl text-base sm:text-lg text-slate-600 font-normal leading-relaxed"
+          >
+            Hi, I'm <span className="text-slate-900 font-semibold">Anower Ferdos</span> — Founder of{' '}
+            <a
+              href="https://drchemedu.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-700 font-semibold underline hover:text-sky-800 transition-colors"
+            >
+              Dr. Chem
+            </a>{' '}
+            (<span className="font-mono text-sky-700 text-sm">drchemedu.com</span>) and a passionate software developer building impactful, production-grade applications.
           </motion.p>
 
-          {/* CTAs */}
+          {/* CTA Cluster */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex flex-wrap items-center gap-4 pt-2"
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto"
           >
             <a
               href="#projects"
-              className="group px-7 py-4 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-3 transform hover:-translate-y-0.5"
+              className="sparkle-btn w-full sm:w-auto px-7 py-3.5 text-sm"
             >
-              <span>View My Work</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-sky-400" />
+              <span>Explore My Work</span>
+              <ArrowRight className="w-4 h-4" />
             </a>
 
             <button
               onClick={onOpenContact}
-              className="px-7 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-semibold text-sm sm:text-base hover:bg-slate-50 hover:border-sky-500/50 shadow-xs transition-all duration-300 transform hover:-translate-y-0.5"
+              className="sparkle-btn-light w-full sm:w-auto px-7 py-3.5 text-sm"
             >
-              Let's Connect →
+              <span>Discuss a Project</span>
+              <ExternalLink className="w-4 h-4 text-sky-600" />
             </button>
           </motion.div>
-        </div>
+        </main>
 
-        {/* Right Column — Editorial Hardware Photo Frame */}
-        <div className="lg:col-span-5 flex justify-center items-center relative perspective-container">
-          {/* Soft Shadow Glow Behind Card */}
-          <div
-            className="absolute inset-0 rounded-3xl bg-slate-200/50 blur-2xl transform scale-105 pointer-events-none"
-            style={{
-              transform: `translate(${mousePos.x * -10}px, ${mousePos.y * -10}px)`,
-            }}
-          />
-
-          <motion.div
-            animate={{
-              rotateX: mousePos.y * -6,
-              rotateY: mousePos.x * 8,
-            }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-            className="relative w-full max-w-md rounded-3xl p-1.5 bg-white border border-slate-200 shadow-xl preserve-3d group overflow-hidden"
-          >
-            {/* Floating Badges */}
-            <div className="absolute -top-3 -right-3 z-30 w-11 h-11 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-sky-600 animate-float">
-              <Code2 className="w-5 h-5" />
-            </div>
-            <div
-              className="absolute -bottom-3 -left-3 z-30 w-12 h-12 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-emerald-600 animate-float"
-              style={{ animationDelay: '2s' }}
+        {/* Floating Before vs. After Interactive Canvas */}
+        <div className="relative w-full max-w-6xl mx-auto my-6 lg:my-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Box: Before (The Manual Problem) */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-5 p-6 rounded-3xl bg-slate-50/90 border border-slate-200/90 shadow-sm relative rotate-[-1deg] space-y-4"
             >
-              <Sparkles className="w-5 h-5" />
-            </div>
-
-            {/* macOS Window Title Bar */}
-            <div className="px-4 py-3 bg-slate-100/90 border-b border-slate-200 flex items-center justify-between rounded-t-3xl z-20 relative">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-rose-400 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-amber-400 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-400 inline-block" />
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs font-bold text-rose-700 uppercase">01 • THE CHALLENGE</span>
+                </div>
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Manual / Fragmented</span>
               </div>
-              <div className="text-[11px] font-mono text-slate-700 font-semibold flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-sky-600" />
-                <span>ANOWER FERDOS</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-mono text-emerald-700 font-semibold">FOUNDER</span>
-              </div>
-            </div>
 
-            {/* Mode Switcher Tabs */}
-            <div className="p-1.5 bg-slate-50 border-b border-slate-200 flex items-center gap-1">
-              <button
-                onClick={() => setActiveCardMode('photo')}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-mono transition-all flex items-center justify-center gap-1.5 ${
-                  activeCardMode === 'photo'
-                    ? 'bg-white text-sky-700 font-bold border border-slate-200 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
-                }`}
-              >
-                <User className="w-3.5 h-3.5" />
-                <span>Portrait</span>
-              </button>
-              <button
-                onClick={() => setActiveCardMode('tech')}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-mono transition-all flex items-center justify-center gap-1.5 ${
-                  activeCardMode === 'tech'
-                    ? 'bg-white text-emerald-700 font-bold border border-slate-200 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
-                }`}
-              >
-                <Terminal className="w-3.5 h-3.5" />
-                <span>Tech Spec</span>
-              </button>
-              <button
-                onClick={() => setActiveCardMode('metrics')}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-mono transition-all flex items-center justify-center gap-1.5 ${
-                  activeCardMode === 'metrics'
-                    ? 'bg-white text-indigo-700 font-bold border border-slate-200 shadow-xs'
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
-                }`}
-              >
-                <Activity className="w-3.5 h-3.5" />
-                <span>Stats</span>
-              </button>
-            </div>
-
-            {/* Card Content Area */}
-            <div className="relative w-full aspect-[4/5] rounded-b-3xl overflow-hidden bg-slate-100 flex flex-col justify-between">
-              {activeCardMode === 'photo' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="w-full h-full relative group/img"
-                >
-                  <img
-                    src="/anower-hero.jpg"
-                    alt="Anower Ferdos — Startup Founder & Software Developer"
-                    className="w-full h-full object-cover object-top filter brightness-105 contrast-105 group-hover/img:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-
-                  {/* Bottom Editorial Badge */}
-                  <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 flex items-center justify-between shadow-lg">
-                    <div className="flex flex-col">
-                      <span className="text-xs text-slate-900 font-mono tracking-wider font-bold">ANOWER FERDOS</span>
-                      <span className="text-xs text-slate-600 font-medium">Startup Founder @ Dr. Chem</span>
-                    </div>
-                    <a
-                      href="https://drchemedu.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-[10px] font-mono text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200 hover:bg-sky-100 transition-colors shadow-xs"
-                    >
-                      <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
-                      <span>drchemedu.com</span>
-                    </a>
+              {/* Spreadsheet & Note mockup */}
+              <div className="space-y-3">
+                <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-800">
+                    <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+                    <span>Traditional_Curriculum_Notes.xlsx</span>
                   </div>
-                </motion.div>
-              )}
+                  <div className="grid grid-cols-3 text-[10px] font-mono text-slate-500 bg-slate-50 p-1.5 rounded border border-slate-100">
+                    <span>Theory</span>
+                    <span>No Lab</span>
+                    <span className="text-rose-600">Manual Check</span>
+                  </div>
+                </div>
 
-              {activeCardMode === 'tech' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="p-6 h-full bg-white flex flex-col justify-between space-y-4"
-                >
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                    <span className="text-xs font-mono text-emerald-700 uppercase font-semibold">FOUNDER & DEV SPEC</span>
+                <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 shadow-xs">
+                  <p className="text-xs text-amber-900 font-mono leading-relaxed">
+                    📝 "Students memorize chemistry equations from paper notes without virtual 3D practice or lab access."
+                  </p>
+                </div>
+              </div>
+
+              {/* Pain points tag */}
+              <div className="flex items-center gap-2 pt-2 text-[10px] font-mono font-bold uppercase tracking-wider text-rose-700">
+                <span className="px-2 py-1 rounded bg-rose-50 border border-rose-200">✕ Slow</span>
+                <span className="px-2 py-1 rounded bg-rose-50 border border-rose-200">✕ Theoretical Only</span>
+                <span className="px-2 py-1 rounded bg-rose-50 border border-rose-200">✕ Hard to Scale</span>
+              </div>
+            </motion.div>
+
+            {/* Center Indicator Pulse Arrow */}
+            <div className="hidden lg:flex lg:col-span-2 flex-col items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-sky-50 border border-sky-300 flex items-center justify-center shadow-md animate-pulse-border">
+                <ArrowRight className="w-5 h-5 text-sky-700" />
+              </div>
+              <span className="text-[10px] font-mono text-sky-700 font-bold uppercase mt-2">TRANSFORMED</span>
+            </div>
+
+            {/* Right Box: After (The Interactive Digital Solution) */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-5 p-6 rounded-3xl bg-white border border-sky-300 shadow-md relative rotate-[1deg] space-y-4"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs font-bold text-sky-700 uppercase">02 • THE SOLUTION</span>
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-mono font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                  DR. CHEM & APPS
+                </span>
+              </div>
+
+              {/* Dashboard Preview */}
+              <div className="space-y-3">
+                {/* Tabs */}
+                <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl">
+                  {['Dashboard', 'Virtual Lab', 'AI Tutor', 'Analytics'].map((t) => (
                     <button
-                      onClick={copySnippet}
-                      className="text-[11px] font-mono text-slate-500 hover:text-sky-600 flex items-center gap-1 transition-colors"
+                      key={t}
+                      onClick={() => setActiveTab(t)}
+                      className={`flex-1 py-1 rounded-lg text-[10px] font-mono font-bold transition-all ${
+                        activeTab === t
+                          ? 'bg-white text-sky-700 shadow-xs'
+                          : 'text-slate-500 hover:text-slate-900'
+                      }`}
                     >
-                      {copiedCode ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                      <span>{copiedCode ? 'Copied!' : 'Copy Object'}</span>
+                      {t}
                     </button>
-                  </div>
+                  ))}
+                </div>
 
-                  <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs leading-relaxed overflow-x-auto space-y-1 shadow-sm">
-                    <div><span className="text-purple-400">const</span> <span className="text-amber-300">founder</span> = &#123;</div>
-                    <div className="pl-4"><span className="text-sky-300">name</span>: <span className="text-emerald-300">"Anower Ferdos"</span>,</div>
-                    <div className="pl-4"><span className="text-sky-300">role</span>: <span className="text-emerald-300">"Startup Founder & Developer"</span>,</div>
-                    <div className="pl-4"><span className="text-sky-300">startup</span>: <span className="text-emerald-300">"Dr. Chem (drchemedu.com)"</span>,</div>
-                    <div className="pl-4"><span className="text-sky-300">tech</span>: [<span className="text-amber-300">"React"</span>, <span className="text-amber-300">"Three.js"</span>, <span className="text-amber-300">"Node"</span>],</div>
-                    <div className="pl-4"><span className="text-sky-300">focus</span>: <span className="text-emerald-300">"Solving real problems"</span></div>
-                    <div>&#125;;</div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="text-[11px] font-mono text-slate-500">PRIMARY TECH STACK:</div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['JavaScript (ES6+)', 'React 19', 'Vite', 'Three.js', 'Tailwind CSS', 'Node.js', 'Git / GitHub'].map((tech) => (
-                        <span key={tech} className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-[11px] font-mono text-slate-800">
-                          {tech}
-                        </span>
-                      ))}
+                {/* Metric chart box */}
+                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-slate-50 to-sky-50/40 border border-sky-200 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-[10px] font-mono text-slate-500 uppercase">Interactive Engagement</div>
+                      <div className="text-xl font-black text-slate-900">100% Visual</div>
                     </div>
+                    <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-full">
+                      ↑ 3D Simulations
+                    </span>
                   </div>
 
-                  <a
-                    href="https://drchemedu.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-3 px-4 rounded-xl bg-sky-600 text-white font-bold text-xs font-mono flex items-center justify-center gap-2 hover:bg-sky-500 transition-all shadow-sm"
-                  >
-                    <span>Visit drchemedu.com</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </motion.div>
-              )}
+                  {/* SVG Trace Line */}
+                  <svg viewBox="0 0 200 36" className="w-full h-7" fill="none">
+                    <path
+                      d="M0,28 L20,24 L40,30 L60,18 L80,22 L100,12 L120,16 L140,8 L160,14 L180,4 L200,8"
+                      stroke="#0284C7"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
 
-              {activeCardMode === 'metrics' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="p-6 h-full bg-white flex flex-col justify-between space-y-4"
-                >
-                  <div className="text-xs font-mono text-indigo-700 uppercase font-semibold pb-1 border-b border-slate-100">
-                    REAL-TIME STATS & IMPACT
+                {/* Activity Feed */}
+                <div className="space-y-1.5 text-[11px] font-mono text-slate-600">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Virtual titration lab executed in real-time</span>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-                      <div className="text-3xl font-black text-slate-900 font-mono">15+</div>
-                      <div className="text-xs text-slate-600 font-medium">Projects Completed</div>
-                    </div>
-                    <div className="p-4 rounded-2xl bg-sky-50/60 border border-sky-200 space-y-1">
-                      <div className="text-3xl font-black text-sky-800 font-mono">1</div>
-                      <div className="text-xs text-sky-700 font-medium">Startup Founded</div>
-                    </div>
-                    <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-1">
-                      <div className="text-3xl font-black text-emerald-800 font-mono">100%</div>
-                      <div className="text-xs text-emerald-700 font-medium">User Centric</div>
-                    </div>
-                    <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-1">
-                      <div className="text-3xl font-black text-amber-800 font-mono">24/7</div>
-                      <div className="text-xs text-amber-700 font-medium">Continuous Innovation</div>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+                    <span>AI-assisted explanation delivered in Bangla</span>
                   </div>
+                </div>
+              </div>
 
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 font-mono flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-amber-600 shrink-0" />
-                    <span>Degree: B.Sc. in Chemistry (Dhaka College)</span>
-                  </div>
+              {/* Success tags */}
+              <div className="flex items-center gap-2 pt-2 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-700">
+                <span className="px-2 py-1 rounded bg-emerald-50 border border-emerald-200">✓ Fast</span>
+                <span className="px-2 py-1 rounded bg-emerald-50 border border-emerald-200">✓ Interactive</span>
+                <span className="px-2 py-1 rounded bg-emerald-50 border border-emerald-200">✓ Scalable</span>
+              </div>
+            </motion.div>
 
-                  <button
-                    onClick={() => setActiveCardMode('photo')}
-                    className="w-full py-3 px-4 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-bold text-xs font-mono flex items-center justify-center gap-2 hover:bg-slate-200 transition-all"
-                  >
-                    <span>View Portrait Photo →</span>
-                  </button>
-                </motion.div>
-              )}
-            </div>
-          </motion.div>
+          </div>
         </div>
-      </div>
 
-      {/* Slogan Banner Below Hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="w-full max-w-6xl mx-auto mt-24 p-8 sm:p-12 rounded-3xl bg-white border border-slate-200/80 text-center space-y-4 shadow-sm relative overflow-hidden"
-      >
-        <div className="text-xs font-mono text-sky-700 uppercase tracking-[0.2em] font-bold">FOUNDER SLOGAN</div>
-        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-          "I Don't Just Write Code. <span className="text-sky-700">I Build Solutions."</span>
-        </h2>
-        <p className="text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto leading-relaxed">
-          Turning ideas, problems, and possibilities into meaningful, high-performance digital experiences.
-        </p>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 }

@@ -1,125 +1,109 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, Code2 } from 'lucide-react';
+import { Sparkles, Menu, X, ArrowUpRight } from 'lucide-react';
 
 export default function Navbar({ onOpenContact }) {
-  const [isPlayingSound, setIsPlayingSound] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Journey', href: '#journey' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Philosophy', href: '#philosophy' },
-    { name: 'Why Me', href: '#why-me' },
-    { name: 'Contact', href: '#contact' },
+    { num: '01', name: 'Work', href: '#projects' },
+    { num: '02', name: 'About', href: '#about' },
+    { num: '03', name: 'Journey', href: '#journey' },
+    { num: '04', name: 'Skills', href: '#skills' },
+    { num: '05', name: 'Process', href: '#capabilities' },
+    { num: '06', name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pt-4 px-4 sm:px-8 transition-all duration-300 pointer-events-none">
-      <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
-        {/* Brand Logo */}
-        <a
-          href="#"
-          className="group flex items-center gap-3 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 hover:border-sky-500/50 transition-all duration-300 shadow-sm hover:shadow-md"
-        >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-sky-600 to-cyan-500 flex items-center justify-center text-white font-black text-sm shadow-sm group-hover:rotate-12 transition-transform duration-300">
-            A
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-sm tracking-tight text-slate-900 group-hover:text-sky-700 transition-colors">
-              ANOWER FERDOS
-            </span>
-            <span className="text-[10px] tracking-wider text-slate-500 font-mono flex items-center gap-1">
-              <Code2 className="w-2.5 h-2.5 text-sky-600" />
-              FOUNDER & DEVELOPER
-            </span>
-          </div>
+    <header className="fixed left-1/2 top-4 sm:top-6 -translate-x-1/2 z-50 w-[92%] max-w-[1480px] transition-all duration-500 pointer-events-none">
+      <nav className="flex items-center justify-between rounded-full bg-white/80 backdrop-blur-xl border border-slate-200/80 px-4 sm:px-6 py-2.5 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.08)] pointer-events-auto">
+        {/* Brand */}
+        <a href="#" className="flex items-center gap-2 font-bold text-lg sm:text-xl tracking-tight text-slate-900 group">
+          <span className="font-extrabold text-slate-900 group-hover:text-sky-700 transition-colors">
+            Anower<span className="text-sky-600">.</span>
+          </span>
+          <span className="hidden md:inline-block px-2 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-[10px] font-mono text-sky-800 font-semibold uppercase tracking-wider">
+            Folio
+          </span>
         </a>
 
-        {/* Desktop Nav Items */}
-        <nav className="hidden lg:flex items-center gap-1 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200/80 shadow-sm">
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-6 lg:gap-8 font-sans text-xs sm:text-sm font-medium text-slate-600">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-full hover:bg-slate-100 transition-all duration-200"
+              className="transition-colors hover:text-sky-700 relative py-1 hover:font-semibold"
             >
               {link.name}
             </a>
           ))}
-        </nav>
+        </div>
 
-        {/* Right Action Cluster */}
+        {/* Right CTA */}
         <div className="flex items-center gap-3">
-          {/* Ambient Sound Toggle */}
-          <button
-            onClick={() => setIsPlayingSound(!isPlayingSound)}
-            className="p-2.5 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 text-slate-600 hover:text-sky-600 hover:border-sky-300 transition-all duration-200 flex items-center gap-2 text-xs shadow-sm"
-            title={isPlayingSound ? 'Mute ambient sound' : 'Enable ambient sound'}
-          >
-            {isPlayingSound ? (
-              <>
-                <Volume2 className="w-4 h-4 text-sky-600 animate-pulse" />
-                <span className="hidden md:inline font-mono text-[10px] text-sky-700 font-semibold">ATMOSPHERE</span>
-              </>
-            ) : (
-              <>
-                <VolumeX className="w-4 h-4" />
-                <span className="hidden md:inline font-mono text-[10px] text-slate-500">AUDIO OFF</span>
-              </>
-            )}
-          </button>
-
-          {/* Let's Connect CTA */}
           <button
             onClick={onOpenContact}
-            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs shadow-sm hover:shadow-md hover:shadow-sky-500/20 transition-all duration-300 transform hover:-translate-y-0.5"
+            className="sparkle-btn text-xs py-2 px-4.5 rounded-full hidden sm:inline-flex items-center gap-2"
           >
-            <span>Let's Connect →</span>
+            <Sparkles className="w-3.5 h-3.5 text-sky-300" />
+            <span>Get in Touch</span>
           </button>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile menu trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2.5 rounded-full bg-white/90 border border-slate-200 text-slate-800 shadow-sm"
-            aria-label="Toggle menu"
+            aria-label="Toggle Navigation Menu"
+            className="md:hidden p-2 rounded-full bg-slate-100 border border-slate-200 text-slate-900 hover:bg-slate-200 transition-colors"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden mt-3 max-w-sm mx-auto p-4 rounded-2xl bg-white border border-slate-200 shadow-xl pointer-events-auto"
+            initial={{ opacity: 0, y: -20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.98 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden mt-3 bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-3xl p-6 shadow-2xl pointer-events-auto space-y-4"
           >
-            <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <span className="font-bold text-slate-900 tracking-tight">ANOWER FERDOS</span>
+              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Navigation</span>
+            </div>
+
+            <ul className="space-y-1">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-50 rounded-xl transition-all"
-                >
-                  {link.name}
-                </a>
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between px-3 py-3 rounded-2xl text-slate-800 hover:bg-sky-50 hover:text-sky-700 transition-all font-medium text-base group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-xs text-slate-400 group-hover:text-sky-600">{link.num}</span>
+                      <span>{link.name}</span>
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-sky-600 opacity-0 group-hover:opacity-100 transition-all" />
+                  </a>
+                </li>
               ))}
-              <hr className="border-slate-100 my-2" />
+            </ul>
+
+            <div className="pt-3 border-t border-slate-100">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenContact();
                 }}
-                className="w-full py-3 rounded-xl bg-sky-600 text-white font-semibold text-sm flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all"
               >
-                <span>Let's Connect →</span>
+                <Sparkles className="w-4 h-4" />
+                <span>Let's Build Something Great</span>
               </button>
             </div>
           </motion.div>
