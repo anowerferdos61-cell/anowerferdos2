@@ -60,17 +60,7 @@ export default function Navbar({ onOpenContact, onOpenResume }) {
         </div>
 
         {/* Right CTA Cluster */}
-        <div className="flex items-center gap-2.5">
-          {/* Direct Resume Modal Trigger */}
-          <button
-            onClick={onOpenResume}
-            title="Preview & Download CV"
-            className="sparkle-btn-light text-xs py-2 px-3.5 rounded-full hidden sm:inline-flex items-center gap-1.5 shadow-xs"
-          >
-            <FileText className="w-3.5 h-3.5 text-sky-600" />
-            <span>CV</span>
-          </button>
-
+        <div className="flex items-center gap-3">
           {/* Contact Button */}
           <button
             onClick={onOpenContact}
